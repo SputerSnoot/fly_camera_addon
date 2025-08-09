@@ -28,7 +28,8 @@ extends CharacterBody3D
 ## [br][br]
 ##
 ## The camera controls can be changed. By default it uses the [param WASD]
-## keys for movement, [param Shift] to move faster, [param Ctrl] to move slower, and
+## keys for movement, [param Q] to move down, [param E] to move up,
+## [param Shift] to move faster, [param Ctrl] to move slower, and
 ## the [param Right Mouse Button] to activate/deactivate the mouse controls
 ## (capturing/uncapturing the mouse pointer).
 ## [br][br]
@@ -42,6 +43,8 @@ extends CharacterBody3D
 ##cam_backward
 ##cam_left
 ##cam_right
+##cam_up
+##cam_down
 ##cam_faster
 ##cam_slower
 ##cam_activate
@@ -141,6 +144,8 @@ const _ACTION_FORWARD  := "cam_forward"
 const _ACTION_BACKWARD := "cam_backward"
 const _ACTION_LEFT     := "cam_left"
 const _ACTION_RIGHT    := "cam_right"
+const _ACTION_UP       := "cam_up"
+const _ACTION_DOWN     := "cam_down"
 const _ACTION_FASTER   := "cam_faster"
 const _ACTION_SLOWER   := "cam_slower"
 const _ACTION_ACTIVATE := "cam_activate"
@@ -150,6 +155,8 @@ var _actions_to_key := {
 	_ACTION_BACKWARD : KEY_S,
 	_ACTION_LEFT     : KEY_A,
 	_ACTION_RIGHT    : KEY_D,
+	_ACTION_UP       : KEY_E,
+	_ACTION_DOWN     : KEY_Q,
 	_ACTION_FASTER   : KEY_SHIFT,
 	_ACTION_SLOWER   : KEY_CTRL,
 	_ACTION_ACTIVATE : mouse_button,
@@ -212,6 +219,8 @@ func _physics_process(delta: float) -> void:
 		if _is_cam_action_pressed(_ACTION_BACKWARD): dir += aim[2]
 		if _is_cam_action_pressed(_ACTION_LEFT):     dir -= aim[0]
 		if _is_cam_action_pressed(_ACTION_RIGHT):    dir += aim[0]
+		if _is_cam_action_pressed(_ACTION_UP):   dir += aim[1]
+		if _is_cam_action_pressed(_ACTION_DOWN): dir -= aim[1]
 		if _is_cam_action_pressed(_ACTION_FASTER):   spd *= speed_factor
 		if _is_cam_action_pressed(_ACTION_SLOWER):   spd /= speed_factor
 
